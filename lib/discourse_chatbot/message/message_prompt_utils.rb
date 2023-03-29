@@ -23,10 +23,6 @@ module ::DiscourseChatbot
         else
           messages = [{ "role": "system", "content": I18n.t("chatbot.prompt.system") }]
 
-          if SiteSetting.chatbot_exampleuser_system_role == true
-            messages << { "role": "system", "name": "example_user", "content": I18n.t("chatbot.prompt.exampleuser") }
-          end
-
           if SiteSetting.chatbot_exampleassistant_system_role == true
             messages << { "role": "system", "name": "example_assistant", "content": I18n.t("chatbot.prompt.exampleassistant") }
           end
@@ -38,6 +34,10 @@ module ::DiscourseChatbot
 
           if SiteSetting.chatbot_prio_system_role == true
             messages << { "role": "system", "content": I18n.t("chatbot.prompt.systemprio") }
+          end
+
+          if SiteSetting.chatbot_exampleuser_system_role == true
+            messages << { "role": "system", "name": "example_user", "content": I18n.t("chatbot.prompt.exampleuser") }
           end
 
           messages

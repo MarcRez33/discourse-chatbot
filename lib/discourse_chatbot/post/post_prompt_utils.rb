@@ -28,16 +28,16 @@ module ::DiscourseChatbot
             messages << { "role": "system", "name": "example_assistant", "content": I18n.t("chatbot.prompt.exampleassistant") }
           end
 
-          if SiteSetting.chatbot_exampleuser_system_role == true
-            messages << { "role": "system", "name": "example_user", "content": I18n.t("chatbot.prompt.exampleuser") }
-          end
-
           messages += post_collection.reverse.map { |p|
             { "role": (p.user_id == bot_user_id ? "assistant" : "user"), "content": (p.user_id == bot_user_id ? "#{p.raw}" : I18n.t("chatbot.prompt.post", username: p.user.username, raw: p.raw)) }
           }
 
           if SiteSetting.chatbot_prio_system_role == true
             messages << { "role": "system", "content": I18n.t("chatbot.prompt.systemprio") }
+          end
+
+          if SiteSetting.chatbot_exampleuser_system_role == true
+            messages << { "role": "system", "name": "example_user", "content": I18n.t("chatbot.prompt.exampleuser") }
           end
 
           messages
