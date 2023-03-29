@@ -89,6 +89,12 @@ plugins:
   chatbot_prio_system_role:
     default: false
     client: true
+  chatbot_exampleassistant_system_role:
+    default: false
+    client: true
+  chatbot_exampleuser_system_role:
+    default: false
+    client: true
   chatbot_max_response_tokens:
     client: false
     default: 200
