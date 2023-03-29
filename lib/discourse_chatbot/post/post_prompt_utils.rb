@@ -23,6 +23,14 @@ module ::DiscourseChatbot
           messages = [{ "role": "system", "content": I18n.t("chatbot.prompt.system") }]
           messages << { "role": "user", "content":  I18n.t("chatbot.prompt.title", topic_title: post_collection.first.topic.title) }
           messages << { "role": "user", "content": I18n.t("chatbot.prompt.first_post", username: post_collection.first.topic.first_post.user.username, raw: post_collection.first.topic.first_post.raw) }
+          
+          if SiteSetting.chatbot_exampleassistant_system_role == true
+            messages << { "role": "system", "name": "example_assistant", "content": I18n.t("chatbot.prompt.exampleassistant") }
+          end
+
+          if SiteSetting.chatbot_exampleuser_system_role == true
+            messages << { "role": "system", "name": "example_user", "content": I18n.t("chatbot.prompt.exampleuser") }
+          end
 
           messages += post_collection.reverse.map { |p|
             { "role": (p.user_id == bot_user_id ? "assistant" : "user"), "content": (p.user_id == bot_user_id ? "#{p.raw}" : I18n.t("chatbot.prompt.post", username: p.user.username, raw: p.raw)) }
@@ -30,14 +38,6 @@ module ::DiscourseChatbot
 
           if SiteSetting.chatbot_prio_system_role == true
             messages << { "role": "system", "content": I18n.t("chatbot.prompt.systemprio") }
-          end
-
-          if SiteSetting.chatbot_exampleassistant_system_role == true
-            messages << { "role": "system", "name": "example_assistant", "content": I18n.t("chatbot.prompt.exampleassistant") }
-          end
-
-          if SiteSetting.chatbot_exampleuser_system_role == true
-            messages << { "role": "system", "name": "example_user", "content": I18n.t("chatbot.prompt.exampleuser") }
           end
 
           messages
