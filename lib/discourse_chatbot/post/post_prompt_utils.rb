@@ -33,11 +33,11 @@ module ::DiscourseChatbot
           }
 
           if SiteSetting.chatbot_prio_system_role == true
-            messages << { "role": "system", "content": I18n.t("chatbot.prompt.systemprio") }
+            messages.insert(-1,{ "role": "system", "content": I18n.t("chatbot.prompt.systemprio") })
           end
 
           if SiteSetting.chatbot_exampleuser_system_role == true
-            messages << { "role": "system", "name": "example_user", "content": I18n.t("chatbot.prompt.exampleuser") }
+            messages.insert(-1,{ "role": "system", "name": "example_user", "content": I18n.t("chatbot.prompt.exampleuser") })
           end
 
           messages
