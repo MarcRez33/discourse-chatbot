@@ -38,6 +38,7 @@ module ::DiscourseChatbot
           role = (p.user_id == bot_user_id ? "assistant" : "user")
           content = (p.user_id == bot_user_id ? "#{p.raw}" : I18n.t("chatbot.prompt.post", username: p.user.username, raw: post_content))
           { "role": role , "content": content }
+          end
 
           if SiteSetting.chatbot_prio_system_role == true
             messages.insert(-1,{ "role": "system", "content": I18n.t("chatbot.prompt.systemprio") })
